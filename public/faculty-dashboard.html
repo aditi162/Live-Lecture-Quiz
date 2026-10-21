@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class = "dashboard">
+    <div class="navbar">
+        <h2>Live Lecture Quiz</h2>
+        <button id="logout">Logout</button>
+    </div>
+    <div class="container">
+        <h2 id="welcome">Welcome</h2>
+
+        <div class="grid">
+            <a href="create-quiz.html" class="action-card">
+                <h3>Create Quiz</h3>
+                <p>Write questions for today's lecture</p>
+            </a>
+            
+            <a class="action-card" href="assign-students.html">
+                <h3>Assign students</h3>
+                <p>Choose who gets a quiz</p>
+            </a>
+
+            <a href="results.html" class="action-card">
+                <h3>View Results</h3>
+                <p>See how your class performed</p>
+                </a>
+        </div>
+    </div>
+    
+    <script>
+        if(!localStorage.getItem("token")){
+            window.location.href = "faculty-login.html";
+        }
+        document.getElementById("welcome").textContent = "Welcome, " + localStorage.getItem("name");
+        document.getElementById("logout").onclick = ()=>{
+           localStorage.clear();
+           window.location.href = "faculty-login.html";
+        };
+           
+    </script>
+</body>
+</html>
