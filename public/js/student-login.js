@@ -1,10 +1,11 @@
 document.getElementById("loginBtn").addEventListener("click", async () => {
   const rollNumber = document.getElementById("roll").value;
+  const password = document.getElementById("password").value;
 
   const res = await fetch("/api/student/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rollNumber }),
+    body: JSON.stringify({ rollNumber, password }),
   });
   const data = await res.json();
 

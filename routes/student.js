@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const Student = require("../models/Student");
@@ -10,9 +11,11 @@ const router = express.Router();
 // login with the roll number only
 
 router.post("/login", async(req, res)=>{
-    const { rollNumber} = req.body;
+    const { rollNumber, password} = req.body;
     const student = await Student.findOne({rollNumber: String(rollNumber).trim()});
-    if (!student) return res.status(400).json({message: "Invalid roll number"});
+
+    const ok = student && student.password && await bcrypt.compare(String(password || ""), student.password);
+    if (!ok) return res.status(400).json({message: "Invalid roll number or password"});
 
 
 const token = jwt.sign(
