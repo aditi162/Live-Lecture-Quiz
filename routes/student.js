@@ -28,8 +28,15 @@ res.json({token, name: student.name});
 
 // quizzes assigned to these students
 router.get("/quizzes", studentOnly, async(req, res)=>{
-    const quizzes = await Quiz.find({assignedStudents: req.user.id})
+    // quizzes this student has already submitted
+    const done = await Result.find({student: req.user.id}).select("quiz");
+    const doneIds = done.map(r => r.quiz);
+
+    // quizzes assigned , minus the quizzes already submitted
+
+    const quizzes = await Quiz.find({assignedStudents: req.user.id, _id: { $nin: doneIds}, })
         .select("title subject");
+        
     res.json(quizzes);
 });
 

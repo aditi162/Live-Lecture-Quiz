@@ -18,7 +18,7 @@ async function load(){
             `<a class = "action-card" href = "take-quiz.html?id=${q._id}">
             <h3>${q.title}</h3><p>${q.subject}</p>
             </a>`).join("")
-            : "<p>No quizzes assigned to you yet.</p>";
+            : "<p>You have no pending quizzes.</p>";
         }
 
     document.getElementById("logout").onclick = () =>{
